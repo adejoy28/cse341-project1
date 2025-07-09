@@ -1,0 +1,25 @@
+{
+  "name": "contacts",
+  "version": "1.0.0",
+  "description": "This is a contacts project for w01-w02",
+  "keywords": [
+    "Contacts",
+    "CSE341"
+  ],
+  "license": "ISC",
+  "author": "John Adebayo",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "test",
+    "start": "nodemon server.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.1.0",
+    "express": "^5.1.0",
+    "mongodb": "^6.17.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
