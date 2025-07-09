@@ -7,20 +7,6 @@ const getAll = async (req, res) => {
         const users = await mongodb.getDatabase().collection("users").find({}).toArray();
         console.log(users);
 
-        // const db = mongodb.getDatabase();
-        // console.log('Database:', db);
-
-        // const collection = db.collection('users');
-        // console.log('Collection:', collection);
-
-        // const cursor = collection.find();
-        // console.log('Cursor:', cursor);
-
-        // const users = await cursor.toArray();
-        // console.log('Users:', users);
-
-        // console.log('Collection name:', await mongodb.getDatabase().collection('contacts').find().toArray());
-
         res.setHeader('Content-type', 'application/json');
         res.status(200).json(users);
     }
@@ -32,11 +18,12 @@ const getAll = async (req, res) => {
 
 const getSingle = async (req, res) => {
     const userId = new ObjectId(req.params.id);
-    const result = await mongodb.getDatabase().db().collection('users').find();
+    console.log(userId._id);
+    const result = await mongodb.getDatabase().collection('users').find({ _id: userId });
     result.toArray()
         .then((users) => {
             res.setHeader('Content-type', 'application/json');
-            res.status(200).json(users[id]);
+            res.status(200).json(users[0]);
         })
         .catch((err) => {
             console.log('Error: ' + err);

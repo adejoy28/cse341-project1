@@ -1,13 +1,8 @@
 const routes = require('express').Router();
 
-const contacts = require('../controllers/contacts');
-
-
-routes.get('/', contacts.home);
 
 routes.use('/users', require('./users'));
 
-routes.get('/contacts', contacts.index);
-
+routes.use('/contacts', require('./contacts'));
 
 module.exports = routes;
