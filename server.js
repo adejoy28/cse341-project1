@@ -1,7 +1,10 @@
 const dotenv = require('dotenv');
 dotenv.config();
 
-const express = require('express'), port = process.env.PORT, app = express(), bodyParser = require('body-parser');
+const express = require('express'),
+    port = process.env.PORT || 8000,
+    app = express(),
+    bodyParser = require('body-parser');
 
 const mongodb = require('./db/config.js');
 app.use(bodyParser.json());

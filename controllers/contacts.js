@@ -14,7 +14,7 @@ const get = async (req, res) => {
         res.status(200).json(contact);
 
     } catch (err) {
-        res.status(500).json({ error: 'An error occurred getting the contact' + req.params.id });
+        res.status(500).json({ message: 'An error occurred getting the contact' + req.params.id, error: err });
     }
 };
 
@@ -45,9 +45,9 @@ const createContact = async (req, res) => {
 
     try {
         const result = await mongodb.getDatabase().collection('contacts').insertOne(contact);
-        res.status(200).json(result);
+        res.status(200).json({ message: "Contact successfully created", data: result });
     } catch (err) {
-        res.status(500).json({ error: 'An error occurred' });
+        res.status(500).json({ error: 'An error occurred' + err });
     }
 }
 const updateContact = async (req, res) => {
@@ -62,10 +62,10 @@ const updateContact = async (req, res) => {
             favoriteColor: req.body.favoriteColor,
             birthday: req.body.birthday
         }
-        const result = await mongodb.getDatabase().collection('contacts').replaceOne({ _id: contactId }, contact);
-        res.status(200).json(result);
+        await mongodb.getDatabase().collection('contacts').replaceOne({ _id: contactId }, contact);
+        res.status(200).json("Contact updated successfully");
     } catch (err) {
-        res.status(500).json({ error: 'An error occurred' });
+        res.status(500).json({ error: 'An error occurred' + err });
     }
 }
 
@@ -76,9 +76,9 @@ const deleteContact = async (req, res) => {
 
     try {
         const result = await mongodb.getDatabase().collection('contacts').deleteOne({ _id: contactId });
-        res.status(200).json(result);
+        res.status(200).json({ "message": "Contact deleted successfully", "deleted": result.deletedCount, "status": result.acknowledged });
     } catch (err) {
-        res.status(500).json({ error: 'An error occurred' });
+        res.status(500).json({ error: 'An error occurred' + err });
     }
 }
 
